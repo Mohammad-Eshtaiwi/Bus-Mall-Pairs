@@ -1,1 +1,26 @@
 /* TODO: Make it awesome */
+/* message */
+.message {
+  background-color: black;
+  position: relative;
+  width: fit-content;
+  padding: 30px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
+}
+.message a,
+.message {
+  color: blanchedalmond;
+}
+.animate-left-to-right {
+  animation: left-to-right 0.3s;
+}
+@keyframes left-to-right {
+  0% {
+    left: 0;
+  }
+  100% {
+    left: 50%;
+  }
+}
