@@ -39,9 +39,18 @@ function Cart(name, quantity) {
 // storage of items in the cart
 let allCart = [];
 
-Cart.prototype.saveToLocalStorage = function () {
+function saveToLocalStorage() {
   // TODO: Fill in this instance method to save the contents of the cart to localStorage
-};
+  if (localStorage.length === 0) {
+    let temp = JSON.stringify(allCart);
+    localStorage.setItem("cart", temp);
+  } else {
+    let temp = JSON.parse(localStorage.getItem("cart"));
+    temp.push(allCart[allCart.length - 1]);
+    temp = JSON.stringify(temp);
+    localStorage.setItem("cart", temp);
+  }
+}
 
 Cart.prototype.removeItem = function (item) {
   // TODO: Fill in this instance method to remove one item from the cart.
@@ -104,7 +113,7 @@ function submitMessage(quantityValue, itemsValue) {
     </p>
     <br>
     <a href="./cart.html">go to cart</a>
-    <button>cancle</button>
+    <button>cancel</button>
   </div>
   `;
   document.body.appendChild(div);
@@ -120,4 +129,14 @@ function onSubmit() {
   submitMessage(quantityValue, itemsValue);
   allCart.push(new Cart(itemsValue, quantityValue));
   items.value = quantity.value = "";
+  saveToLocalStorage();
+  let self = event.target;
+  self.setAttribute("disabled", true);
+  let message = document.querySelector(".message");
+  let cancel = document.querySelector(".message button");
+  console.log(cancel);
+  cancel.addEventListener("click", () => {
+    self.removeAttribute("disabled");
+    message.remove();
+  });
 }
